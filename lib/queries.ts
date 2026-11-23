@@ -20,7 +20,7 @@ export type Dashboard = {
 type Params = Record<string, string>;
 
 /** Turns filters into a WHERE clause. User values are only ever passed as parameters. */
-export function where(filters: Filters): { sql: string; params: Params } {
+function where(filters: Filters): { sql: string; params: Params } {
   const params: Params = { from: filters.from, to: filters.to };
   // "Before the day after `to`" keeps the whole of the last day.
   const parts = ["ts >= $from::DATE", "ts < $to::DATE + INTERVAL 1 DAY"];
@@ -92,32 +92,6 @@ export async function getDashboard(filters: Filters): Promise<Dashboard> {
         SELECT isodow(ts)::INTEGER AS weekday, hour(ts)::INTEGER AS hour, ${ORDERS}
         FROM sales WHERE ${match} GROUP BY weekday, hour ORDER BY weekday, hour`),
     };
-  } finally {
-    db.closeSync();
-  }
-}
-
-export const EXPORT_COLUMNS = [
-  "bill", "datetime", "outlet", "order_type", "payment",
-  "category", "item", "price", "quantity", "revenue",
-];
-
-/** Reads matching line items in batches, so a large export never sits in memory at once. */
-export async function* exportRows(filters: Filters): AsyncGenerator<unknown[][]> {
-  const { sql: match, params } = where(filters);
-  const db = await connect();
-  try {
-    const result = await db.stream(
-      `SELECT bill, strftime(ts, '%Y-%m-%d %H:%M:%S'), outlet, order_type, payment,
-              category, item, price, quantity, price * quantity
-       FROM sales WHERE ${match} ORDER BY ts, bill, item`,
-      params,
-    );
-    try {
-      for await (const batch of result.yieldRowsJson()) yield batch;
-    } finally {
-      result.closeSync(); // also runs if the download is cancelled
-    }
   } finally {
     db.closeSync();
   }

@@ -3,9 +3,7 @@ import { defaultUnit, rollUp, weekdayCounts } from "@/lib/series";
 import { buildInsights } from "@/lib/insights";
 import { defaultFilters } from "@/lib/filters";
 import { getDashboard } from "@/lib/queries";
-import { toCsv } from "@/lib/csv";
 import { axisLabel, hourLabel, percent, short } from "@/lib/format";
-import { GET as exportCsv } from "@/app/api/export/route";
 import { GET as dashboard } from "@/app/api/dashboard/route";
 
 describe("rollUp", () => {
@@ -60,29 +58,9 @@ it("describes the full data correctly", async () => {
   expect(text).not.toContain("NaN");
 });
 
-it("quotes CSV values only when needed", () => {
-  expect(toCsv([["a", 'say "hi"', "x,y", 3, null]])).toBe('a,"say ""hi""","x,y",3,\r\n');
-});
-
 describe("API", () => {
-  it("exports every matching line item", async () => {
-    const response = await exportCsv(new Request("http://x/api/export"));
-    const lines = (await response.text()).trimEnd().split("\r\n");
-    expect(lines).toHaveLength(300_001);
-    expect(lines[0]).toBe("bill,datetime,outlet,order_type,payment,category,item,price,quantity,revenue");
-  });
-
-  it("survives a cancelled export", async () => {
-    const response = await exportCsv(new Request("http://x/api/export"));
-    const reader = response.body!.getReader();
-    await reader.read();
-    await reader.cancel();
-    const after = await dashboard(new Request("http://x/api/dashboard"));
-    expect(after.status).toBe(200);
-  });
-
-  it.each([dashboard, exportCsv])("answers bad filters with 400", async (GET) => {
-    const response = await GET(new Request("http://x/api?outlet=Atlantis"));
+  it("answers bad filters with 400", async () => {
+    const response = await dashboard(new Request("http://x/api?outlet=Atlantis"));
     expect(response.status).toBe(400);
     expect(await response.json()).toEqual({ error: 'Outlet "Atlantis" was not found.' });
   });

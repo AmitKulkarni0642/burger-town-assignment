@@ -37,13 +37,6 @@ export default function DashboardView({ initial }: { initial: Dashboard }) {
           <h1 className="text-2xl font-semibold tracking-tight">Burger Town sales</h1>
           <p className="text-sm text-ink-2">{longDate(filters.from)} to {longDate(filters.to)}</p>
         </div>
-        <a
-          href={`/api/export${query ? `?${query}` : ""}`}
-          download
-          className="flex h-10 items-center rounded-lg border border-line bg-surface px-4 text-sm font-medium hover:border-accent"
-        >
-          Export CSV
-        </a>
       </header>
 
       <FilterBar filters={filters} onChange={setFilters} />

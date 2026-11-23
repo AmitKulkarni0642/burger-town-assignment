@@ -9,7 +9,7 @@ An analytics dashboard over 300,000 restaurant line items: 110,478 orders from s
 - **KPIs:** revenue, orders, revenue per order, units sold, total records.
 - **Charts:** revenue or orders over time (day, week, month), outlets, categories, top items, payment and order type shares, and a weekday by hour heatmap.
 - **Filters:** date range, outlet, category, item, order type and payment. They can be combined, they live in the URL so a view can be shared, and the outlet, category and item bars can be clicked to filter.
-- **Extras:** CSV export of the filtered rows, calculated insights, phone layout, dark mode.
+- **Extras:** calculated insights, phone layout, dark mode.
 
 ## Run it
 
@@ -32,7 +32,7 @@ To deploy, build the data file first, then run `npx vercel --prod`. The `.vercel
 ```
 data.xlsx --(Python, run once)--> data/sales.parquet + data/meta.json
                                           |
-Browser <---- JSON / CSV ---- Next.js API routes ---- SQL ----> DuckDB (in memory)
+Browser <------- JSON ------- Next.js API routes ---- SQL ----> DuckDB (in memory)
 ```
 
 | Part | Where |
@@ -41,7 +41,7 @@ Browser <---- JSON / CSV ---- Next.js API routes ---- SQL ----> DuckDB (in memor
 | Load the data into DuckDB | `lib/db.ts` |
 | Every SQL query | `lib/queries.ts` |
 | Read and check filters | `lib/filters.ts` |
-| API | `app/api/dashboard`, `app/api/export` |
+| API | `app/api/dashboard` |
 | Screen | `components/` |
 
 1. **Prepare.** The script converts types, checks the data and writes a 1.5 MB Parquet file (the spreadsheet is 13 MB). It stops if any total or rule it relies on no longer holds.
@@ -65,6 +65,8 @@ Browser <---- JSON / CSV ---- Next.js API routes ---- SQL ----> DuckDB (in memor
 
 **No login.** The app is read-only and meant to be easy to review.
 
+**No raw data download.** I built a streamed CSV export of the filtered rows, then removed it. The site is public, and I was not sure the raw rows may be shared. The API returns totals only.
+
 ## Performance
 
 Measured on the live site (Vercel, Mumbai region) from one connection, a few requests each:
@@ -76,9 +78,8 @@ Measured on the live site (Vercel, Mumbai region) from one connection, a few req
 | Filtered view, first request to a new server (loads the data) | 1.3 s, of which 0.57 s is loading and querying |
 | Filtered view, warm server, not cached | 0.22 to 0.42 s, of which 57 to 114 ms is querying |
 | Filtered view, cached on the CDN | about 0.1 s |
-| Full CSV export, 300,000 rows (28.6 MB) | 4.8 s |
 
-Returning to an earlier filter is instant, because the browser keeps answers it has loaded. Quick clicks are grouped, and an outdated answer can never replace a newer one. Exports are streamed in batches. API responses include a `Server-Timing` header with the query time.
+Returning to an earlier filter is instant, because the browser keeps answers it has loaded. Quick clicks are grouped, and an outdated answer can never replace a newer one. API responses include a `Server-Timing` header with the query time.
 
 ## What I found in the data
 
@@ -100,7 +101,7 @@ Returning to an earlier filter is instant, because the browser keeps answers it 
 
 ## Tests
 
-The tests check known totals, that parts add up to the whole, filters against separately written SQL, empty results, invalid input, partial periods, and that a full export contains every row. Bad filter values get a clear 400 error, and filter values only ever reach SQL as bound parameters.
+The tests check known totals, that parts add up to the whole, filters against separately written SQL, empty results, invalid input and partial periods. Bad filter values get a clear 400 error, and filter values only ever reach SQL as bound parameters.
 
 ## With more time
 
