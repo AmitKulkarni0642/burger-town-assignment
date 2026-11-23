@@ -2,7 +2,7 @@
 
 An analytics dashboard over 300,000 restaurant line items: 110,478 orders from six outlets, 17 June 2025 to 16 June 2026.
 
-**Live app:** added after deployment
+**Live app:** https://burger-town-dashboard-sandy.vercel.app
 
 ## Features
 
@@ -59,7 +59,7 @@ Browser <---- JSON / CSV ---- Next.js API routes ---- SQL ----> DuckDB (in memor
 
 **Next.js for both screen and API.** One project and one deployment. Python is used only for preparing data.
 
-**Cache hard.** Data changes only when a new version is deployed, so API answers are marked for the CDN to keep for a day. The dashboard always writes filters in the same order, so equal views share a cache entry.
+**Cache hard.** Data changes only when a new version is deployed, so API answers are cached on the CDN for a day. The dashboard always writes filters in the same order, so equal views share a cache entry.
 
 **Rules, not an AI model, for insights.** They are instant and free, and each can be checked against the numbers. They describe what happened without claiming why.
 
@@ -67,14 +67,16 @@ Browser <---- JSON / CSV ---- Next.js API routes ---- SQL ----> DuckDB (in memor
 
 ## Performance
 
-Measured on a laptop with a production build:
+Measured on the live site (Vercel, Mumbai region) from one connection, a few requests each:
 
 | What | Result |
 |---|---|
-| Prerendered page HTML, compressed | 12 KB |
-| All eight queries, filtered to one outlet | 90 to 130 ms |
-| All eight queries, unfiltered | 170 to 230 ms |
-| First call, including loading the data (in tests) | about 210 ms |
+| First paint of the dashboard in a browser | about 1 second |
+| Page HTML, compressed | 12 KB |
+| Filtered view, first request to a new server (loads the data) | 1.3 s, of which 0.57 s is loading and querying |
+| Filtered view, warm server, not cached | 0.22 to 0.42 s, of which 57 to 114 ms is querying |
+| Filtered view, cached on the CDN | about 0.1 s |
+| Full CSV export, 300,000 rows (28.6 MB) | 4.8 s |
 
 Returning to an earlier filter is instant, because the browser keeps answers it has loaded. Quick clicks are grouped, and an outdated answer can never replace a newer one. Exports are streamed in batches. API responses include a `Server-Timing` header with the query time.
 
