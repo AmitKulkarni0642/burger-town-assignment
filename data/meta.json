@@ -1,0 +1,215 @@
+{
+  "minDate": "2025-06-17",
+  "maxDate": "2026-06-16",
+  "rows": 300000,
+  "outlets": [
+    "HSR Layout",
+    "Indiranagar",
+    "JP Nagar",
+    "Koramangala",
+    "MG Road",
+    "Whitefield"
+  ],
+  "categories": [
+    "Burgers",
+    "Combos",
+    "Desserts",
+    "Drinks",
+    "Extras",
+    "Sides",
+    "Wraps"
+  ],
+  "items": [
+    {
+      "name": "Aloo Tikki Burger",
+      "category": "Burgers"
+    },
+    {
+      "name": "Cheese Blast Burger",
+      "category": "Burgers"
+    },
+    {
+      "name": "Classic Veg Burger",
+      "category": "Burgers"
+    },
+    {
+      "name": "Crispy Chicken Burger",
+      "category": "Burgers"
+    },
+    {
+      "name": "Double Chicken Burger",
+      "category": "Burgers"
+    },
+    {
+      "name": "Fish Fillet Burger",
+      "category": "Burgers"
+    },
+    {
+      "name": "Mushroom Swiss Burger",
+      "category": "Burgers"
+    },
+    {
+      "name": "Paneer Makhani Burger",
+      "category": "Burgers"
+    },
+    {
+      "name": "Smoky BBQ Burger",
+      "category": "Burgers"
+    },
+    {
+      "name": "Spicy Zinger Burger",
+      "category": "Burgers"
+    },
+    {
+      "name": "Burger + Fries + Coke Combo",
+      "category": "Combos"
+    },
+    {
+      "name": "Chicken Combo Meal",
+      "category": "Combos"
+    },
+    {
+      "name": "Double Burger Combo",
+      "category": "Combos"
+    },
+    {
+      "name": "Family Feast Combo",
+      "category": "Combos"
+    },
+    {
+      "name": "Veg Combo Meal",
+      "category": "Combos"
+    },
+    {
+      "name": "Brownie Sundae",
+      "category": "Desserts"
+    },
+    {
+      "name": "Choco Lava Cake",
+      "category": "Desserts"
+    },
+    {
+      "name": "Ice Cream Tub",
+      "category": "Desserts"
+    },
+    {
+      "name": "Soft Serve Cone",
+      "category": "Desserts"
+    },
+    {
+      "name": "Chocolate Shake",
+      "category": "Drinks"
+    },
+    {
+      "name": "Coke",
+      "category": "Drinks"
+    },
+    {
+      "name": "Cold Coffee",
+      "category": "Drinks"
+    },
+    {
+      "name": "Fanta",
+      "category": "Drinks"
+    },
+    {
+      "name": "Fresh Lime Soda",
+      "category": "Drinks"
+    },
+    {
+      "name": "Iced Tea",
+      "category": "Drinks"
+    },
+    {
+      "name": "Mineral Water",
+      "category": "Drinks"
+    },
+    {
+      "name": "Sprite",
+      "category": "Drinks"
+    },
+    {
+      "name": "Strawberry Shake",
+      "category": "Drinks"
+    },
+    {
+      "name": "Dip - BBQ",
+      "category": "Extras"
+    },
+    {
+      "name": "Dip - Cheese",
+      "category": "Extras"
+    },
+    {
+      "name": "Dip - Mayo",
+      "category": "Extras"
+    },
+    {
+      "name": "Extra Cheese Slice",
+      "category": "Extras"
+    },
+    {
+      "name": "Extra Patty",
+      "category": "Extras"
+    },
+    {
+      "name": "Cheese Loaded Fries",
+      "category": "Sides"
+    },
+    {
+      "name": "Chicken Nuggets (6 pc)",
+      "category": "Sides"
+    },
+    {
+      "name": "Classic Salted Fries",
+      "category": "Sides"
+    },
+    {
+      "name": "Coleslaw",
+      "category": "Sides"
+    },
+    {
+      "name": "Garlic Bread",
+      "category": "Sides"
+    },
+    {
+      "name": "Onion Rings",
+      "category": "Sides"
+    },
+    {
+      "name": "Peri Peri Fries",
+      "category": "Sides"
+    },
+    {
+      "name": "Potato Wedges",
+      "category": "Sides"
+    },
+    {
+      "name": "Falafel Wrap",
+      "category": "Wraps"
+    },
+    {
+      "name": "Grilled Chicken Wrap",
+      "category": "Wraps"
+    },
+    {
+      "name": "Paneer Tikka Wrap",
+      "category": "Wraps"
+    },
+    {
+      "name": "Veg Kathi Wrap",
+      "category": "Wraps"
+    }
+  ],
+  "orderTypes": [
+    "Delivery",
+    "Dine-In",
+    "Takeaway"
+  ],
+  "payments": [
+    "Cash/Card/Coupon",
+    "Dineout",
+    "SwiggyPay",
+    "ZomatoPay"
+  ]
+}
