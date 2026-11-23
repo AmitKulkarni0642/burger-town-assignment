@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  color-scheme: light dark;
+  --page: #f4f3f0;
+  --surface: #fcfcfb;
+  --line: #e4e3de;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --ink-3: #706f6a;
+  --accent: #256abf;
+  --accent-soft: #e6f0fc;
+  --danger: #b3261e;
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --heat-low: #e6f0fc;
+  --heat-high: #104281;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --page: #111110;
+    --surface: #1a1a19;
+    --line: #33332f;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --ink-3: #98978e;
+    --accent: #6da7ec;
+    --accent-soft: #16283d;
+    --danger: #ff8a80;
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --heat-low: #1c2733;
+    --heat-high: #86b6ef;
   }
 }
 
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-geist-sans);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--page);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Recharts focuses the chart on click; the crosshair already shows position. */
+.recharts-surface:focus:not(:focus-visible),
+.recharts-sector:focus {
+  outline: none;
 }

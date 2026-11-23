@@ -4,7 +4,7 @@ import { buildInsights } from "@/lib/insights";
 import { defaultFilters } from "@/lib/filters";
 import { getDashboard } from "@/lib/queries";
 import { toCsv } from "@/lib/csv";
-import { hourLabel, short } from "@/lib/format";
+import { axisLabel, hourLabel, percent, short } from "@/lib/format";
 import { GET as exportCsv } from "@/app/api/export/route";
 import { GET as dashboard } from "@/app/api/dashboard/route";
 
@@ -47,6 +47,8 @@ it("picks days for short ranges and weeks for long ones", () => {
 it("formats hours and Indian number units", () => {
   expect([0, 11, 12, 20, 24].map(hourLabel)).toEqual(["12 am", "11 am", "12 pm", "8 pm", "12 am"]);
   expect([999, 99_999, 1_500_000, 69_480_952].map(short)).toEqual(["999", "99,999", "15.0 L", "6.95 Cr"]);
+  expect([0, 55_000, 165_000].map((n) => axisLabel(n, 212_000))).toEqual(["0", "0.55 L", "1.65 L"]);
+  expect([0.053, 0.0999, 0.63].map(percent)).toEqual(["5.3%", "10%", "63%"]);
 });
 
 it("describes the full data correctly", async () => {
