@@ -103,6 +103,10 @@ Returning to an earlier filter is instant, because the browser keeps answers it 
 
 The tests check known totals, that parts add up to the whole, filters against separately written SQL, empty results, invalid input and partial periods. Bad filter values get a clear 400 error, and filter values only ever reach SQL as bound parameters.
 
+## How I used AI
+
+I used Claude Code to write most of the code, as the brief allows. I chose Next.js, and after comparing DuckDB with MySQL I chose DuckDB. I also decided to keep the raw data out of the public repository and app.
+
 ## With more time
 
 Comparison with a previous period, item pairings within orders, and automated browser tests.
