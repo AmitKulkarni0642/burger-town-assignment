@@ -13,21 +13,19 @@ An analytics dashboard over 300,000 restaurant line items: 110,478 orders from s
 
 ## Run it
 
-Needs Node 24. The processed data file is all the app needs; there is no database to set up.
+Needs Node 24, Python 3.10+ and the `data.xlsx` provided with the assessment. There is no database to set up. The dataset is not in this repository, because I was not sure it may be published.
 
 ```bash
 npm install
+pip install -r scripts/requirements.txt
+python scripts/build_data.py path/to/data.xlsx   # writes data/sales.parquet, about 20 seconds
+
 npm run dev      # http://localhost:3000
 npm test
 npm run build    # production build
 ```
 
-To rebuild the data from the spreadsheet (Python 3.10+):
-
-```bash
-pip install -r scripts/requirements.txt
-python scripts/build_data.py path/to/data.xlsx
-```
+To deploy, build the data file first, then run `npx vercel --prod`. The `.vercelignore` file lets the CLI upload the data file that git ignores, so deploy from a computer that has it rather than from GitHub.
 
 ## How it works
 

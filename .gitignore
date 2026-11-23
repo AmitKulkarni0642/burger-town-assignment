@@ -43,5 +43,5 @@ next-env.d.ts
 # source spreadsheet (kept local)
 *.xlsx
 
-# not committed until publishing the data is confirmed
+# built by scripts/build_data.py; kept out of the public repository
 /data/sales.parquet

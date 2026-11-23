@@ -1,0 +1,8 @@
+# Used instead of .gitignore when deploying from a computer. Unlike .gitignore,
+# it lets data/sales.parquet through, because the live app needs it.
+node_modules
+.next
+.git
+.env*
+*.xlsx
+*.tsbuildinfo
